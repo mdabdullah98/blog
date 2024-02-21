@@ -57,9 +57,6 @@ function Header() {
                   )
               )}
               <li>{authStatus && <Logout />}</li>
-              <li>
-                <Button>click me</Button>
-              </li>
             </ul>
           </nav>
         </div>

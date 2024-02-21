@@ -3,5 +3,26 @@ import Header from "../component/header/Header";
 import Footer from "../component/footer/Footer";
 import Logout from "./header/Logout";
 import Button from "./Button";
+import Home from "../pages/Home";
+import Login from "../pages/Login";
+import Signup from "./../pages/Signup";
+import AddPost from "../pages/AddPost";
+import AllPost from "../pages/AllPost";
+import Container from "./container/Container";
+import Input from "./Input";
+// import AuthLayout from "./AuthLayout";
 
-export { Logo, Header, Footer, Logout, Button };
+export {
+  Logo,
+  Header,
+  Footer,
+  Logout,
+  Button,
+  Home,
+  Login,
+  Signup,
+  AddPost,
+  AllPost,
+  Container,
+  Input,
+};

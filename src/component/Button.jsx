@@ -5,10 +5,14 @@ function Button({
   type = "button",
   bgColor = "bg-yellow-900",
   textColor = "text-white",
+  className = "",
   ...props
 }) {
   return (
-    <button className={`${bgColor} ${textColor} rounded-full px-2 py-1`}>
+    <button
+      type={type}
+      className={`${bgColor} ${textColor} rounded-full  py-1 ${className}`}
+    >
       {children}
     </button>
   );
