@@ -10,7 +10,8 @@ import AddPost from "../pages/AddPost";
 import AllPost from "../pages/AllPost";
 import Container from "./container/Container";
 import Input from "./Input";
-// import AuthLayout from "./AuthLayout";
+import AuthLayout from "./AuthLayout";
+import ProtectedRoutes from "./ProtectedRoutes";
 
 export {
   Logo,
@@ -25,4 +26,6 @@ export {
   AllPost,
   Container,
   Input,
+  AuthLayout,
+  ProtectedRoutes,
 };

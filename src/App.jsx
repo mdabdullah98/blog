@@ -1,9 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+
+//react router outlet
 import Layout from "./component/Layout";
-import authService from "./appwrite/auth";
+
+//react redux and redux authslice action
 import { useDispatch } from "react-redux";
 import { login, logout } from "./store/authSlice";
 
+//firebase/auth
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase/firebaseconfig";
+
+//react router dom routes
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -11,25 +19,36 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import { Home, Signup, Login, AddPost, AllPost } from "./component/index";
+import {
+  Home,
+  Signup,
+  Login,
+  AddPost,
+  AllPost,
+  ProtectedRoutes,
+} from "./component/index";
 
 function App() {
   const dispatch = useDispatch();
 
-  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        dispatch(
+          login({
+            token: user?.accessToken,
+            email: user?.email,
+          })
+        );
+      } else {
+        dispatch(logout());
+      }
+    });
 
-  // useEffect(() => {
-  //   authService
-  //     .getCurrentUser()
-  //     .then((userData) => {
-  //       if (userData) {
-  //         dispatch(login(userData));
-  //       } else {
-  //         dispatch(logout());
-  //       }
-  //     })
-  //     .finally(() => setLoading(false));
-  // }, []);
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   const route = createBrowserRouter(
     createRoutesFromElements(
@@ -42,7 +61,7 @@ function App() {
       </Route>
     )
   );
-  return !loading ? <RouterProvider router={route} /> : "loading...";
+  return <RouterProvider router={route} />;
 }
 
 export default App;

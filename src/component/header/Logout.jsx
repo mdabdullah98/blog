@@ -1,4 +1,4 @@
-import authService from "../../appwrite/auth";
+import authService from "../../firebase/auth";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/authSlice";
 import { useNavigate } from "react-router-dom";
@@ -11,8 +11,14 @@ function Logout() {
   const logoutUser = () => {
     authService
       .logout()
-      .then(() => dipatch(logout()))
-      .finally(() => navigate("/"));
+      .then((loggedOut) => {
+        if (loggedOut) {
+          console.log(loggedOut);
+          dipatch(logout());
+          navigate("/login");
+        }
+      })
+      .catch((error) => console.log(error));
   };
   return (
     <button

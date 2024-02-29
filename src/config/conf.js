@@ -1,8 +1,13 @@
 const conf = {
-  appWrite_project_ID: String(import.meta.env.VITE_PROJECT_ID),
-  appWrite_Api_Endpoint: String(import.meta.env.VITE_APPWRITE_API_ENDPOINT),
-  appwrite_database_ID: String(import.meta.env.VITE_APPERITE_DATABASE_ID),
-  appwrite_collection_ID: String(import.meta.env.VITE_APPWRITE_COLLECTION_ID),
-  appwrite_bucket_ID: String(import.meta.env.VITE_APPWRITE_BUCKET_ID),
+  firebase_apikey: String(import.meta.env.VITE_APIKEY),
+  firebase_auth_domain: String(import.meta.env.VITE_AUTH_DOMAIN),
+  firebase_databse_url: String(import.meta.env.VITE_DATABASE_URL),
+  firebase_project_id: String(import.meta.env.VITE_PROJECT_ID),
+  firebase_storage_bucket: String(import.meta.env.VITE_STORAGE_BUCKET),
+  firebase_masseging_sender_id: String(
+    import.meta.env.VITE_MASSEGING_SENDER_ID
+  ),
+  firebase_app_id: String(import.meta.env.VITE_APP_ID),
 };
+
 export default conf;

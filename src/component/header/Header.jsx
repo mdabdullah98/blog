@@ -2,7 +2,8 @@ import { Link } from "react-router-dom";
 
 import { useSelector } from "react-redux";
 
-import { Logout, Logo, Button } from "../index";
+//import from helper function
+import { Logout, Logo } from "../index";
 
 import "./header.css";
 
