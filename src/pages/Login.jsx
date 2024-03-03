@@ -12,9 +12,10 @@ function Login() {
   const navigate = useNavigate();
 
   const [loginStatus, setLoginStatus] = useState({
-    loader: null,
+    loader: false,
     error: null,
   });
+
   const {
     register,
     handleSubmit,
@@ -32,7 +33,11 @@ function Login() {
       .then((user) => {
         if (user) {
           disptach(
-            login({ token: user.user?.accessToken, email: user.user?.email })
+            login({
+              token: user.user?.accessToken,
+              email: user.user?.email,
+              uid: user.user?.uid,
+            })
           );
           navigate("/");
         }
@@ -61,7 +66,8 @@ function Login() {
               width={35}
               className="flex justify-center items-center mb-2"
             />
-            <p>{loginStatus.error}</p>
+            <p className="my-1">{loginStatus.error}</p>
+
             <h2 className="font-bold">Login into your account</h2>
             <div className="my-5">
               <p className="inline-block me-3 font-bold">
@@ -98,7 +104,12 @@ function Login() {
               />
               <p className="text-red-800">{errors.password?.message}</p>
             </div>
-            <Button type="submit" className="bg-stone-500-100 px-3 ">
+            <Button
+              type="submit"
+              className={`w-44 ${
+                loginStatus.loader ? "bg-stone-300" : "bg-stone-900 "
+              } px-3 `}
+            >
               Login
             </Button>
           </form>

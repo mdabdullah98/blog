@@ -1,9 +1,12 @@
 import { useSelector } from "react-redux";
 
 function Home() {
-  const authStatus = useSelector((state) => state.auth.status);
+  const authStatus = useSelector((state) => state.auth);
 
-  return <>{authStatus && <div>Home</div>}</>;
+  if (!authStatus) {
+    return <div>Please login to see all post</div>;
+  }
+  return <>{authStatus && <div></div>}</>;
 }
 
 export default Home;

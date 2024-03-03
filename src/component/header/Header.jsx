@@ -5,6 +5,8 @@ import { useSelector } from "react-redux";
 //import from helper function
 import { Logout, Logo } from "../index";
 
+// import UserProfile from "./UserProfile";
+
 import "./header.css";
 
 function Header() {
@@ -58,6 +60,7 @@ function Header() {
                   )
               )}
               <li>{authStatus && <Logout />}</li>
+              {/* <li>{UserProfile}</li> */}
             </ul>
           </nav>
         </div>

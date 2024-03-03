@@ -1,17 +1,25 @@
 import { useId, forwardRef } from "react";
 
-function Input({ label, type = "text", className = "", ...props }, ref) {
+function Input(
+  { label, type = "text", className = "", labelStyle = "", ...props },
+  ref
+) {
   const id = useId();
+
   return (
     <div className="mt-3">
-      {label && <label htmlFor={id}>{label}</label>}
+      {label && (
+        <label htmlFor={id} className={`${labelStyle}`}>
+          {label}
+        </label>
+      )}
       <br></br>
       <input
         type={type}
-        {...props}
         id={id}
-        className={`w-5/6 outline-none border-none  my-3 px-2 py-1  rounded-md ${className}`}
+        className={`w-full outline-none border-none  my-3 p-2  rounded-md ${className}`}
         ref={ref}
+        {...props}
       />
     </div>
   );

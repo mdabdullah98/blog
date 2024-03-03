@@ -76,7 +76,10 @@ function Signup() {
           />
           <p className="text-red-800">{errors.password?.message}</p>
 
-          <Button type="submit" className="bg-stone-500-100 px-3">
+          <Button
+            type="submit"
+            className={`${loader ? "bg-stone-300" : "bg-stone-900"} px-3`}
+          >
             {loader ? "Signing..." : "sign up"}
           </Button>
         </form>

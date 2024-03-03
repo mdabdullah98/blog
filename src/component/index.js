@@ -10,8 +10,11 @@ import AddPost from "../pages/AddPost";
 import AllPost from "../pages/AllPost";
 import Container from "./container/Container";
 import Input from "./Input";
-import AuthLayout from "./AuthLayout";
+
 import ProtectedRoutes from "./ProtectedRoutes";
+import Error from "./error/Error";
+import Postform from "./Postform";
+import SelectOptions from "./SelectOptions";
 
 export {
   Logo,
@@ -26,6 +29,8 @@ export {
   AllPost,
   Container,
   Input,
-  AuthLayout,
   ProtectedRoutes,
+  Error,
+  Postform,
+  SelectOptions,
 };

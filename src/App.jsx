@@ -26,6 +26,7 @@ import {
   AddPost,
   AllPost,
   ProtectedRoutes,
+  Error,
 } from "./component/index";
 
 function App() {
@@ -52,13 +53,37 @@ function App() {
 
   const route = createBrowserRouter(
     createRoutesFromElements(
-      <Route path="/" element={<Layout />}>
-        <Route path="" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/sign-up" element={<Signup />} />
-        <Route path="/add-post" element={<AddPost />} />
-        <Route path="/all-post" element={<AllPost />} />
-      </Route>
+      <>
+        <Route path="/" element={<Layout />}>
+          <Route
+            path=""
+            element={
+              <ProtectedRoutes>
+                <Home />
+              </ProtectedRoutes>
+            }
+          />
+          <Route path="/login" element={<Login />} />
+          <Route path="/sign-up" element={<Signup />} />
+          <Route
+            path="/add-post"
+            element={
+              <ProtectedRoutes>
+                <AddPost />
+              </ProtectedRoutes>
+            }
+          />
+          <Route
+            path="/all-post"
+            element={
+              <ProtectedRoutes>
+                <AllPost />
+              </ProtectedRoutes>
+            }
+          />
+          <Route path="*" element={<Error />} />
+        </Route>
+      </>
     )
   );
   return <RouterProvider router={route} />;
