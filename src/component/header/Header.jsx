@@ -28,14 +28,10 @@ function Header() {
       to: "/sign-up",
       active: !authStatus,
     },
-    {
-      listName: "All Post",
-      to: "/all-post",
-      active: authStatus,
-    },
+
     {
       listName: "Add Post",
-      to: "/add-post",
+      to: "/add-post/create-post",
       active: authStatus,
     },
   ];

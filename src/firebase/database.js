@@ -1,106 +1,52 @@
 import { db } from "./firebaseconfig";
-import { addDoc, collection } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  query,
+  where,
+  getDocs,
+  getDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
 
 class DatabaseService {
-  async createPost({ title, content, featuredImage, status }, userId) {
+  createPost({ title, content, status, featuredImage }, userId, imgUrl) {
     const docData = {
       title,
       content,
+      imageUrl: imgUrl,
       featuredImage: featuredImage[0].name,
       slug: title.replaceAll(" ", "-"),
       status,
       userId,
     };
-    console.log(docData);
 
-    // try {
-    //   const docRef = await addDoc(collection(db, "users"), docData);
-
-    //   console.log("Document written with ID: ", docRef);
-    // } catch (e) {
-    //   console.error("Error adding document: ", e);
-    // }
+    return addDoc(collection(db, "blog"), docData);
   }
 
-  // async getSinglePost(id) {
-  //   try {
-  //     return await this.database.getDocument(
-  //       conf.appwrite_database_ID,
-  //       conf.appwrite_collection_ID,
-  //       id
-  //     );
-  //   } catch (err) {
-  //     console.log("Appwrite ::get Single Document database services ", err);
-  //   }
-  // }
+  getAllDocumentsByUserID(userId) {
+    const blogRef = collection(db, "blog");
 
-  // async getAllActivePosts() {
-  //   try {
-  //     return await this.database.listDocuments(
-  //       conf.appwrite_database_ID,
-  //       conf.appwrite_collection_ID,
-  //       [Query.equal("status", "active")]
-  //     );
-  //   } catch (err) {
-  //     console.log(
-  //       "Appwrite ::get all documents whoose status is active in database services ",
-  //       err
-  //     );
-  //   }
-  // }
+    const q = query(blogRef, where("userId", "==", `${userId}`));
+    return getDocs(q);
+  }
 
-  // async updatePost(id, { tittle, content, featuredImage, status }) {
-  //   try {
-  //     return await this.database.updateDocument(
-  //       conf.appwrite_database_ID,
-  //       conf.appwrite_collection_ID,
-  //       id,
-  //       { tittle, content, featuredImage, status }
-  //     );
-  //   } catch (err) {
-  //     console.log("Appwrite ::update document in database services ", err);
-  //   }
-  // }
+  getSingleDocument(id) {
+    const docRef = doc(db, "blog", id);
+    return getDoc(docRef);
+  }
 
-  // async deletePost(id) {
-  //   try {
-  //     return await this.database.deleteDocument(
-  //       conf.appwrite_database_ID,
-  //       conf.appwrite_collection_ID,
-  //       id
-  //     );
-  //   } catch (err) {
-  //     console.log("Appwrite ::delete document in database services ", err);
-  //   }
-  // }
+  updateDocument(dataObj, id) {
+    //Set the "capital" field of the city 'DC'
+    const washingtonRef = doc(db, "blog", id);
+    return updateDoc(washingtonRef, dataObj);
+  }
 
-  // //appwrite bucket storage
-
-  // async uploadFile(file) {
-  //   try {
-  //     return await this.bucket.createFile(
-  //       conf.appwrite_bucket_ID,
-  //       ID.unique(),
-  //       file
-  //     );
-  //   } catch (err) {
-  //     console.log("Appwrite :: upload file in storage services ", err);
-  //   }
-  // }
-
-  // async deleteFIle(fileID) {
-  //   try {
-  //     await this.bucket.deleteFile(conf.appwrite_bucket_ID, fileID);
-  //     return true;
-  //   } catch (err) {
-  //     console.log("Appwrite :: deletefile in storage services ", err);
-  //     return false;
-  //   }
-  // }
-
-  // filePreview(fileID) {
-  //   return this.bucket.getFilePreview(conf.appwrite_bucket_ID, fileID);
-  // }
+  deleteDocument(id) {
+    return deleteDoc(doc(db, "blog", id));
+  }
 }
 
 const databases = new DatabaseService();

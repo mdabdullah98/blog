@@ -3,7 +3,7 @@ import Header from "../component/header/Header";
 import Footer from "../component/footer/Footer";
 import Logout from "./header/Logout";
 import Button from "./Button";
-import Home from "../pages/Home";
+import Home from "../pages/home/Home";
 import Login from "../pages/Login";
 import Signup from "./../pages/Signup";
 import AddPost from "../pages/AddPost";
@@ -15,6 +15,9 @@ import ProtectedRoutes from "./ProtectedRoutes";
 import Error from "./error/Error";
 import Postform from "./Postform";
 import SelectOptions from "./SelectOptions";
+
+import PostCard from "./PostCard";
+import Post from "./Post";
 
 export {
   Logo,
@@ -33,4 +36,6 @@ export {
   Error,
   Postform,
   SelectOptions,
+  PostCard,
+  Post,
 };

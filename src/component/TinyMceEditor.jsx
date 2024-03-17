@@ -1,22 +1,28 @@
-import React from "react";
+// import React from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { Controller } from "react-hook-form";
 
 function TinyMceEditor({ name, label, control, defaultValue = "" }) {
   return (
-    <div>
-      {label && <label className=" text-white text-2xl">{label}</label>}
+    <div className="lg:w-8/12">
+      {label && <label className=" text-white ">{label}</label>}
       <Controller
         name={name || "content"}
         control={control}
+        rules={{
+          required: {
+            value: true,
+            message: "This feild should not be empty",
+          },
+        }}
         render={({ field: { onChange, onBlur } }) => (
           <Editor
             apiKey="htrv058sp1drqipegf8sx4q45u9xt9ulr1c822rdo576hxz6"
             init={{
               plugins:
-                "anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss",
+                "anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount  linkchecker ",
               toolbar:
-                "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
+                "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog  typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
               tinycomments_mode: "embedded",
               tinycomments_author: "Author name",
               mergetags_list: [

@@ -27,6 +27,7 @@ import {
   AllPost,
   ProtectedRoutes,
   Error,
+  Post,
 } from "./component/index";
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
           login({
             token: user?.accessToken,
             email: user?.email,
+            uid: user?.uid,
           })
         );
       } else {
@@ -63,10 +65,11 @@ function App() {
               </ProtectedRoutes>
             }
           />
+
           <Route path="/login" element={<Login />} />
           <Route path="/sign-up" element={<Signup />} />
           <Route
-            path="/add-post"
+            path="/add-post/:title"
             element={
               <ProtectedRoutes>
                 <AddPost />
@@ -81,6 +84,7 @@ function App() {
               </ProtectedRoutes>
             }
           />
+          <Route path="/post/:title" element={<Post />} />
           <Route path="*" element={<Error />} />
         </Route>
       </>

@@ -1,6 +1,6 @@
 import React from "react";
 
-function Select({ label, options = [], ...props }, ref) {
+function Select({ label, ...props }, ref) {
   return (
     <>
       {label && <label className="text-white">{label}</label>}
@@ -9,11 +9,9 @@ function Select({ label, options = [], ...props }, ref) {
         {...props}
         ref={ref}
       >
-        {options.map((options) => (
-          <option key={options} value={options}>
-            {options}
-          </option>
-        ))}
+        <option value="">Status</option>
+        <option value="active">Active</option>
+        <option value="inActive">InActive</option>
       </select>
     </>
   );

@@ -2,23 +2,22 @@ import authService from "../../firebase/auth";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/authSlice";
 import { useNavigate } from "react-router-dom";
+import { clearData } from "../../store/databaseSlice";
 
 function Logout() {
-  const dipatch = useDispatch();
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
   const logoutUser = () => {
     authService
       .logout()
-      .then((loggedOut) => {
-        if (loggedOut) {
-          console.log(loggedOut);
-          dipatch(logout());
-          navigate("/login");
-        }
+      .then(() => {
+        console.log("loggedout");
+        dispatch(logout());
+        dispatch(clearData());
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error, error.message));
   };
   return (
     <button
