@@ -1,7 +1,5 @@
 import { useState } from "react";
 
-import TinyMceEditor from "./TinyMceEditor";
-
 import { useForm } from "react-hook-form";
 
 import { Button, Input, SelectOptions } from "./index";
@@ -15,6 +13,8 @@ import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 
 import { removeDocument } from "../store/databaseSlice";
+
+import Jodit from "./Jodit";
 
 import {
   updatePostHelperFunction,
@@ -55,6 +55,7 @@ function Postform({ post = "" }) {
           return;
         }
 
+        console.log(data);
         const updateRes = await updatePostHelperFunction(data, post);
 
         console.log(updateRes, "from postform submit handler ,post update");
@@ -70,6 +71,7 @@ function Postform({ post = "" }) {
         if (docStatus) {
           toast("Doc Created to database");
         }
+        console.log(data);
       }
     } catch (err) {
       toast(err.message);
@@ -85,62 +87,59 @@ function Postform({ post = "" }) {
         <div className="input-group flex  flex-wrap">
           <div className="w-full lg:basis-4/6 lg:me-5">
             <Input
-              label="Title "
+              label={`${errors.title ? errors.title?.message : "Title "}`}
               labelStyle="text-white"
               placeholder="Enter Blog Title"
+              className={`${errors.title ? "bg-red-300" : ""}`}
               {...register("title", {
                 required: {
                   value: true,
-                  message: "Title should not be empty",
+                  message: "Title feild is required *",
                 },
               })}
             />
+
             {post && (
               <Input
                 label="Slug "
                 labelStyle="text-white"
                 value={post ? post?.slug : ""}
                 disabled={true}
-                className="cursor-not-allowed"
+                className={`cursor-not-allowed `}
               />
-            )}
-
-            {errors.title && (
-              <p className="mt-2 text-white text-xl">
-                Note : {errors.title?.message}
-              </p>
             )}
           </div>
 
-          <div className="flex-1 ">
+          <div className="flex-1">
             <Input
               type="file"
-              label="Upload Image"
+              label={`${
+                errors.featuredImage
+                  ? errors.featuredImage?.message
+                  : "Upload Image"
+              }`}
               labelStyle="text-white"
-              className="bg-white "
+              className={`bg-white ${errors.featuredImage ? "bg-red-300" : ""}`}
               accept="image/*"
               id="input-file"
               {...register("featuredImage", {
                 required: {
                   value: post?.featuredImage ? false : true,
-                  message: "image feild should not be empty",
+                  message: "File input feild is required *",
                 },
               })}
             />
 
-            <br />
-
-            {errors.featuredImage && (
-              <p className="mt-2 text-white text-xl">
-                Note : {errors.featuredImage?.message}{" "}
-                <sup className="text-red-600">*</sup>
-              </p>
-            )}
-
             <SelectOptions
-              label="Status "
+              label={`${errors.status ? errors.status?.message : "Status"}`}
               options={["select status", "active", "inActive"]}
-              {...register("status")}
+              className={` ${errors.status ? "bg-red-300" : ""}`}
+              {...register("status", {
+                required: {
+                  value: true,
+                  message: "Status feild is required *",
+                },
+              })}
             />
 
             <div className="text-center">
@@ -156,18 +155,13 @@ function Postform({ post = "" }) {
           </div>
         </div>
 
-        <TinyMceEditor
+        <Jodit
           name="content"
-          label="Content "
+          label={`${errors.content ? errors.content?.message : "Content "}`}
           control={control}
+          className={` ${errors.content?.message ? "bg-red-300" : ""}`}
           defaultValue={getValues("content")}
         />
-
-        {errors.content && (
-          <p className="mt-2 text-white text-xl">
-            Note : {errors.content?.message}
-          </p>
-        )}
       </form>
     </div>
   );
