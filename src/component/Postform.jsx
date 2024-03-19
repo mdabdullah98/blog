@@ -26,6 +26,7 @@ function Postform({ post = "" }) {
   const dispatch = useDispatch();
 
   const { userId } = useSelector((state) => state.auth);
+  const allDocuments = useSelector((state) => state.db.allDocuments);
 
   const [loader, setLoader] = useState(false);
 
@@ -55,7 +56,6 @@ function Postform({ post = "" }) {
           return;
         }
 
-        console.log(data);
         const updateRes = await updatePostHelperFunction(data, post);
 
         console.log(updateRes, "from postform submit handler ,post update");
@@ -66,12 +66,19 @@ function Postform({ post = "" }) {
           navigate("/", { state: post.id });
         }
       } else {
+        const imageExist = allDocuments.find(
+          (blog) => blog.featuredImage === data.featuredImage[0].name
+        );
+
+        if (imageExist) {
+          toast("image already exist into storage databse");
+          return;
+        }
         const docStatus = await createDocumentHelperFunction(data, userId);
 
         if (docStatus) {
-          toast("Doc Created to database");
+          navigate("/");
         }
-        console.log(data);
       }
     } catch (err) {
       toast(err.message);
@@ -141,17 +148,6 @@ function Postform({ post = "" }) {
                 },
               })}
             />
-
-            <div className="text-center">
-              <Button
-                type="submit"
-                className={` my-2  w-56 bg-indigo-800 hover:bg-indigo-500 ${
-                  loader ? "bg-indigo-100" : "bg-indigo-800"
-                }`}
-              >
-                {post ? "update" : "submit"}
-              </Button>
-            </div>
           </div>
         </div>
 
@@ -162,6 +158,17 @@ function Postform({ post = "" }) {
           className={` ${errors.content?.message ? "bg-red-300" : ""}`}
           defaultValue={getValues("content")}
         />
+
+        <div className="text-center mt-5">
+          <Button
+            type="submit"
+            className={` my-2  w-56 bg-indigo-800 ${
+              loader ? "bg-indigo-300" : "bg-indigo-800"
+            }`}
+          >
+            {post ? "update" : "submit"}
+          </Button>
+        </div>
       </form>
     </div>
   );

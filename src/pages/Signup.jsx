@@ -5,6 +5,8 @@ import { Input } from "../component/index";
 import { useForm } from "react-hook-form";
 import authService from "../firebase/auth";
 
+import { toast, ToastContainer } from "react-toastify";
+
 function Signup() {
   const navigate = useNavigate();
   const [loader, setLoader] = useState(false);
@@ -24,7 +26,7 @@ function Signup() {
     authService
       .createAccount(data)
       .then((userData) => {
-        if (userData) {
+        if (window.confirm("Account is created navigate to login")) {
           navigate("/login");
         }
       })
@@ -83,6 +85,7 @@ function Signup() {
             {loader ? "Signing..." : "sign up"}
           </Button>
         </form>
+        <ToastContainer />
       </div>
     </Container>
   );

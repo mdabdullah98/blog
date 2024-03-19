@@ -38,6 +38,10 @@ class DatabaseService {
     return getDoc(docRef);
   }
 
+  getAllDocuments() {
+    return getDocs(collection(db, "blog"));
+  }
+
   updateDocument(dataObj, id) {
     //Set the "capital" field of the city 'DC'
     const washingtonRef = doc(db, "blog", id);

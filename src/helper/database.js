@@ -50,6 +50,14 @@ export const updatePostHelperFunction = async (data, post) => {
 
 export const createDocumentHelperFunction = async (data, userId) => {
   let imgUrl = undefined;
+
+  // const imageExistInFirebaseStorage = await storageServices.getDownLoadUrl(
+  //   data.featuredImage[0].name
+  // );
+  // console.log(imageExistInFirebaseStorage);
+  // if (imageExistInFirebaseStorage) {
+  //   return "Image already exist in storage " + imageExistInFirebaseStorage;
+  // }
   const fileRes = await storageServices.uploadFile(data.featuredImage);
 
   if (fileRes) {

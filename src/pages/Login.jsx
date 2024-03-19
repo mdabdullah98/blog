@@ -32,7 +32,6 @@ function Login() {
       .login(data)
       .then((user) => {
         if (user) {
-          console.log(user);
           disptach(
             login({
               token: user.user?.accessToken,

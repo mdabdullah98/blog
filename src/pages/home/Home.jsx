@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import {
-  getAllDocumentsAsyncThunk,
+  getAllDocumentsByUserIDAsyncThunk,
   getSingleDocumentAsyncThunk,
 } from "../../store/databaseSlice";
 
@@ -34,7 +34,7 @@ function Home() {
         } else {
           console.log("i am else part in useefct");
 
-          dispatch(getAllDocumentsAsyncThunk(userId));
+          dispatch(getAllDocumentsByUserIDAsyncThunk(userId));
         }
       } catch (err) {
         console.log(err);
